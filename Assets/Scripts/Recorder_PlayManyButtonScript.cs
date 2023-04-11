@@ -25,13 +25,20 @@ public class Recorder_PlayManyButtonScript : MonoBehaviour
     {
         Sprite sprite;
 
-        if (history.replay_node == history.positions.Last)
+        if (gameManager.playing_forward_many == true)
         {
-            sprite = Resources.Load<Sprite>("Recorder/Dodo_Play_Many_Inactive");
+            sprite = Resources.Load<Sprite>("Recorder/Dodo_Play_Many_Running");
         }
         else
         {
-            sprite = Resources.Load<Sprite>("Recorder/Dodo_Play_Many_Active");
+            if (history.replay_node == history.positions.Last)
+            {
+                sprite = Resources.Load<Sprite>("Recorder/Dodo_Play_Many_Inactive");
+            }
+            else
+            {
+                sprite = Resources.Load<Sprite>("Recorder/Dodo_Play_Many_Active");
+            }
         }
 
         Recorder_PlayManyButton.image.sprite = sprite;
@@ -40,8 +47,6 @@ public class Recorder_PlayManyButtonScript : MonoBehaviour
 
     public void playMany()
     {
-        gameManager.playing_forward_many = true;
-
         history.playMany();
     }
 }

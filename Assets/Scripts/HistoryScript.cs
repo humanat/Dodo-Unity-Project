@@ -13,6 +13,10 @@ public class HistoryScript : MonoBehaviour
 
     public LinkedListNode<Position> replay_node;
 
+
+    float replay_time_period = .35f;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -71,6 +75,10 @@ public class HistoryScript : MonoBehaviour
     //
     public void jumpToBeginning()
     {
+        gameManager.playing_backward_many = false;
+
+        gameManager.playing_forward_many = false;
+
         gameManager.unhighlightAllTiles();
         
         replay_node = positions.First;
@@ -80,22 +88,22 @@ public class HistoryScript : MonoBehaviour
 
 
     //
-    //  BACK MANY
+    //  BACK MANY - REPLAY MANY NODES BACKWARD
     //
     public void backMany()
     {
-        float replay_time_period = .5f;
-
-        gameManager.unhighlightAllTiles();
+        gameManager.playing_forward_many = false;
 
         gameManager.playing_backward_many = true;
+
+        gameManager.unhighlightAllTiles();
 
         StartCoroutine(replayNodesBackward(replay_time_period));
     }
 
 
     //
-    //  REPLAY MANY NODES BACKWARD
+    //  BACK MANY - REPLAY MANY NODES BACKWARD - COROUTINE
     //
     IEnumerator replayNodesBackward(float replay_time_period)
     {
@@ -127,6 +135,10 @@ public class HistoryScript : MonoBehaviour
     //
     public void backOne()
     {
+        gameManager.playing_backward_many = false;
+
+        gameManager.playing_forward_many = false;
+
         gameManager.unhighlightAllTiles();
 
         if (replay_node.Previous != null)   //  IF REPLAY NODE NOT ALREADY THE FIRST NODE
@@ -154,6 +166,10 @@ public class HistoryScript : MonoBehaviour
     //
     public void playOne()
     {
+        gameManager.playing_backward_many = false;
+
+        gameManager.playing_forward_many = false;
+
         gameManager.unhighlightAllTiles();
 
         if (replay_node.Next != null)   //  IF REPLAY NODE NOT ALREADY THE LAST NODE
@@ -170,11 +186,11 @@ public class HistoryScript : MonoBehaviour
     //
     public void playMany()
     {
-        float replay_time_period = .5f;
-
-        gameManager.unhighlightAllTiles();
+        gameManager.playing_backward_many = false;
 
         gameManager.playing_forward_many = true;
+
+        gameManager.unhighlightAllTiles();
 
         StartCoroutine(replayNodesForward(replay_time_period));
     }
@@ -214,6 +230,10 @@ public class HistoryScript : MonoBehaviour
 
     public void jumpToEnd()
     {
+        gameManager.playing_backward_many = false;
+
+        gameManager.playing_forward_many = false;
+
         gameManager.unhighlightAllTiles();
 
         replay_node = positions.Last;
