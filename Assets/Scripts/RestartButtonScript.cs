@@ -196,6 +196,11 @@ public class RestartButtonScript : MonoBehaviour
 
         gameManager.player_AIs = new bool[] { false, true };
 
+        gameManager.playing_backward_many = false;
+
+        gameManager.playing_forward_many = false;
+
+
 
         Tile[] tiles = GameObject.FindObjectsOfType<Tile>();
 

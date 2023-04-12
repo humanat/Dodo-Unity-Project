@@ -9,7 +9,8 @@ public class MenuPanelButtonScript : MonoBehaviour
 
     public GameObject menu_panel;
 
-    //public bool is_showing_menu_panel;
+    public GameObject about_panel;
+
 
 
     public Button menu_panel_item_button;
@@ -74,6 +75,37 @@ public class MenuPanelButtonScript : MonoBehaviour
 
 
                 StartCoroutine(delayHideMenuPanel(.63f));
+
+                break;
+
+
+            case "MenuAboutButton":
+
+                //
+                //  TOGGLE ABOUT PANEL
+                //
+                bool is_showing_about_panel = menu_button.GetComponent<MenuButtonScript>().is_showing_about_panel;
+
+                if (is_showing_about_panel == false)
+                {
+                    about_panel.SetActive(true);
+
+                    menu_button.GetComponent<MenuButtonScript>().is_showing_about_panel = true;
+                }
+                else
+                {
+                    about_panel.SetActive(false);
+
+                    menu_button.GetComponent<MenuButtonScript>().is_showing_about_panel = false;
+                }
+
+
+                //
+                //  HIDE MENU PANEL
+                //
+                menu_panel.SetActive(false);
+
+                menu_button.GetComponent<MenuButtonScript>().is_showing_menu_panel = false;
 
                 break;
         }

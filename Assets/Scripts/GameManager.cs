@@ -740,7 +740,15 @@ public class GameManager : MonoBehaviour
             //
             //  MOVE CHECKER 
             //
-            selected_checker.is_move_starting = true;
+
+
+
+
+            selected_checker.is_checker_moving = true;
+
+
+
+            //selected_checker.is_move_starting = true;
 
             selected_checker.target_tile = clicked_tile;
 

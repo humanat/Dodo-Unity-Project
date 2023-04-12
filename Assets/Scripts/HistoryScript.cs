@@ -113,17 +113,16 @@ public class HistoryScript : MonoBehaviour
 
             if (gameManager.playing_backward_many == true)
             {
-                //Debug.Log("Show backward play node");
-
                 if (replay_node.Previous != null)   //  IF REPLAY NODE NOT ALREADY THE FIRST NODE
                 {
                     replay_node = replay_node.Previous;
 
+                    if (replay_node.Previous == null)
+                    {
+                        gameManager.playing_backward_many = false;
+                    }
+
                     copyReplayNodeToBoard();
-                }
-                else
-                {
-                    gameManager.playing_backward_many = false;
                 }
             }
         }
@@ -207,17 +206,16 @@ public class HistoryScript : MonoBehaviour
 
             if (gameManager.playing_forward_many == true)
             {
-                //Debug.Log("Show forward play node");
-
                 if (replay_node.Next != null)   //  IF REPLAY NODE NOT ALREADY THE LAST NODE
                 {
                     replay_node = replay_node.Next;
 
+                    if (replay_node.Next == null)
+                    {
+                        gameManager.playing_forward_many = false;
+                    }
+
                     copyReplayNodeToBoard();
-                }
-                else
-                {
-                    gameManager.playing_forward_many = false;
                 }
             }
         }

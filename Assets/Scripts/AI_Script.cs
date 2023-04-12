@@ -84,12 +84,31 @@ public class AI_Script
         //
         //  START MOVE
         //
-        move.move_checker.is_move_starting = true;
+
+
+
+
+
+
+        move.move_checker.is_checker_moving = true;
+
+
+
+
+        //move.move_checker.is_move_starting = true;
     }
 
 
     Move SelectMove(Move[] possible_moves)
     {
+        for (int i = 0; i < 50000; ++i)
+        {
+            for (int j = 0; j < 100000; ++j)
+            {
+
+            }
+        }
+
         return possible_moves[Random.Range(0, possible_moves.Length)];
     }
 

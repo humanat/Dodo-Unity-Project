@@ -8,6 +8,8 @@ public class MenuButtonScript : MonoBehaviour
 
     public bool is_showing_menu_panel;
 
+    public bool is_showing_about_panel;
+
 
     // Start is called before the first frame update
     void Start()

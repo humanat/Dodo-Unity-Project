@@ -44,8 +44,8 @@ public class Checker : MonoBehaviour
     //
     //  FAST MOVE
     //
-    float smooth_time = .1f;
-    float turn_completed_time = .1f;
+    float smooth_time = .08f;
+    float turn_completed_time = .25f;
 
     //
     //  SLOW MOVE
@@ -62,6 +62,12 @@ public class Checker : MonoBehaviour
     //  set is_move_starting to false right away, and after a short delay, set was_turn_completed to true in GameManager.
     //
     public bool is_move_starting;
+
+
+
+    public bool is_checker_moving;
+
+
 
     //
     //  ALLOWABLE DIST FROM TARG
@@ -95,6 +101,37 @@ public class Checker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
+        if (is_checker_moving == true)
+        {
+
+
+            if (Mathf.Abs((transform.position - target_tile.transform.position).magnitude) > allowable_dist_from_targ)
+            {
+                transform.position = Vector3.SmoothDamp(transform.position, target_tile.transform.position, ref velocity, smooth_time);
+            }
+            else
+            {
+                is_checker_moving = false;
+
+                gameManager.was_turn_completed = true;
+            }
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+        /*
         if (is_move_starting == true)
         {
             is_move_starting = false;
@@ -109,6 +146,7 @@ public class Checker : MonoBehaviour
         {
             transform.position = Vector3.SmoothDamp(transform.position, target_tile.transform.position, ref velocity, smooth_time);
         }
+        */
     }
 
 
