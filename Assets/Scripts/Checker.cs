@@ -101,12 +101,8 @@ public class Checker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-
         if (is_checker_moving == true)
         {
-
-
             if (Mathf.Abs((transform.position - target_tile.transform.position).magnitude) > allowable_dist_from_targ)
             {
                 transform.position = Vector3.SmoothDamp(transform.position, target_tile.transform.position, ref velocity, smooth_time);
@@ -117,19 +113,7 @@ public class Checker : MonoBehaviour
 
                 gameManager.was_turn_completed = true;
             }
-
-
-
-
-
         }
-
-
-
-
-
-
-
 
         /*
         if (is_move_starting == true)
@@ -153,12 +137,14 @@ public class Checker : MonoBehaviour
     //
     //  DELAY BEFORE MARKING TURN COMPLETED IN GAME MANAGER
     //
+    /*
     IEnumerator markTurnCompleted(float turn_completed_time)
     {
         yield return new WaitForSeconds(turn_completed_time);
 
         gameManager.was_turn_completed = true;
     }
+    */
 
 
     void OnMouseDown()
