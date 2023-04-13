@@ -7,6 +7,10 @@ public class AI_Script : MonoBehaviour
 {
     GameManager gameManager;
 
+    bool was_AI_move_selected = false;
+
+    Move selected_AI_move;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,13 +20,18 @@ public class AI_Script : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (was_AI_move_selected)
+        {
+            was_AI_move_selected = false;
+
+            makeMove(selected_AI_move);
+        }
     }
 
 
 
 
-
+    /*
     public void takeTurn()
     {
         StartCoroutine(takeTurn_CR());
@@ -31,7 +40,6 @@ public class AI_Script : MonoBehaviour
 
     IEnumerator takeTurn_CR()
     {
-        /*
         Move[] possible_moves = getPossibleMoves();
 
 
@@ -48,11 +56,35 @@ public class AI_Script : MonoBehaviour
         makeMove(selected_move);
 
         //makeMove(selected_move);
-        */
 
+        
         yield return new WaitForSeconds(.1f);
     }
+    */
 
+    public void takeTurn()
+    {
+        Move[] possible_moves = getPossibleMoves();
+
+        StartCoroutine(SelectMove(possible_moves));
+    }
+
+    IEnumerator SelectMove(Move[] possible_moves)
+    {
+        for (int i = 0; i < 50000; ++i)
+        {
+            for (int j = 0; j < 100000; ++j)
+            {
+
+            }
+        }
+
+        selected_AI_move = possible_moves[Random.Range(0, possible_moves.Length)];
+
+        was_AI_move_selected = true;
+
+        yield return null;
+    }
 
     void makeMove(Move move)
     {
@@ -104,7 +136,7 @@ public class AI_Script : MonoBehaviour
 
 
 
-
+    /*
     Move SelectMove(Move[] possible_moves)
     {
         for (int i = 0; i < 50000; ++i)
@@ -117,6 +149,8 @@ public class AI_Script : MonoBehaviour
 
         return possible_moves[Random.Range(0, possible_moves.Length)];
     }
+    */
+
 
 
     Move[] getPossibleMoves()

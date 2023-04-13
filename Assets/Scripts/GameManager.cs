@@ -150,7 +150,9 @@ public class GameManager : MonoBehaviour
     //
     void Start()
     {
-        ai_Script = new AI_Script();
+        ai_Script = GameObject.FindObjectOfType<AI_Script>();
+
+        //ai_Script = new AI_Script();
 
         //
         //  PLAYER 0 STARTS AS HUMAN PLAYING RED 
