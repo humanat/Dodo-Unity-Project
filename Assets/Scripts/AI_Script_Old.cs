@@ -1,37 +1,43 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static AI_Script_Old;
+using System.Collections.Generic;
+using System.Collections;
 
-public class AI_Script : MonoBehaviour
+public class AI_Script_Old : MonoBehaviour   
 {
     GameManager gameManager;
 
-    // Start is called before the first frame update
-    void Start()
+    public struct Move
+    {
+        public Move(Checker checker, Tile tile)
+        {
+            move_checker = checker;
+            move_tile = tile;
+        }
+
+        public Checker move_checker { get; }
+
+        public Tile move_tile { get; }
+    }
+
+
+    public AI_Script_Old()
     {
         gameManager = GameObject.FindObjectOfType<GameManager>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
-
-
-
-
+    //
+    //  TAKE TURN
+    //  #########
+    //
+    //  Determine color of player on turn 
+    //
+    //  Get list of movable checkers
+    //
+    //
+    /*
     public void takeTurn()
     {
-        StartCoroutine(takeTurn_CR());
-    }
-
-
-    IEnumerator takeTurn_CR()
-    {
-        /*
         Move[] possible_moves = getPossibleMoves();
 
 
@@ -48,7 +54,34 @@ public class AI_Script : MonoBehaviour
         makeMove(selected_move);
 
         //makeMove(selected_move);
-        */
+    }
+    */
+
+
+    public void takeTurn()
+    {
+        StartCoroutine(takeTurn_CR());
+    }
+
+
+    IEnumerator takeTurn_CR()
+    {
+        Move[] possible_moves = getPossibleMoves();
+
+
+        Move selected_move = SelectMove(possible_moves);
+
+        //
+        //  STATE = CHECKER MOVING
+        //
+        gameManager.state = Enum_Types.states.checker_moving;
+
+        //
+        //  MOVE THE CHECKER
+        //
+        makeMove(selected_move);
+
+        //makeMove(selected_move);
 
         yield return new WaitForSeconds(.1f);
     }
@@ -163,10 +196,4 @@ public class AI_Script : MonoBehaviour
 
         return possibleMoves.ToArray();
     }
-
-
-
-
-
-
 }
