@@ -44,7 +44,7 @@ public class Checker : MonoBehaviour
     //
     //  FAST MOVE
     //
-    float smooth_time = .08f;
+    float smooth_time = .1f;
     float turn_completed_time = .25f;
 
     //

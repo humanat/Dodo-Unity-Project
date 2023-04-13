@@ -1,10 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static AI_Script_Old;
+//using static AI_Script_Old;
 
 public class AI_Script : MonoBehaviour
 {
+    public struct Move
+    {
+        public Move(Checker checker, Tile tile)
+        {
+            move_checker = checker;
+            move_tile = tile;
+        }
+
+        public Checker move_checker { get; }
+
+        public Tile move_tile { get; }
+    }
+
+
     GameManager gameManager;
 
     bool was_AI_move_selected = false;
@@ -29,39 +43,6 @@ public class AI_Script : MonoBehaviour
     }
 
 
-
-
-    /*
-    public void takeTurn()
-    {
-        StartCoroutine(takeTurn_CR());
-    }
-
-
-    IEnumerator takeTurn_CR()
-    {
-        Move[] possible_moves = getPossibleMoves();
-
-
-        Move selected_move = SelectMove(possible_moves);
-
-        //
-        //  STATE = CHECKER MOVING
-        //
-        gameManager.state = Enum_Types.states.checker_moving;
-
-        //
-        //  MOVE THE CHECKER
-        //
-        makeMove(selected_move);
-
-        //makeMove(selected_move);
-
-        
-        yield return new WaitForSeconds(.1f);
-    }
-    */
-
     public void takeTurn()
     {
         Move[] possible_moves = getPossibleMoves();
@@ -69,21 +50,31 @@ public class AI_Script : MonoBehaviour
         StartCoroutine(SelectMove(possible_moves));
     }
 
+
+    //
+    //  ASHWIN  ####################
+    //
+    //  With i = 300, it takes exactly 5 seconds for SelectMove to complete
+    //
+    //  I need to figure out how to limit the Monte Carlo Tree Search analysis to less than 1/60 second per frame
+    //
     IEnumerator SelectMove(Move[] possible_moves)
     {
-        for (int i = 0; i < 50000; ++i)
-        {
-            for (int j = 0; j < 100000; ++j)
-            {
+        int i = 300;
 
-            }
+        while (i > 0)
+        {
+            i--;
+
+            yield return null;
         }
+
 
         selected_AI_move = possible_moves[Random.Range(0, possible_moves.Length)];
 
         was_AI_move_selected = true;
 
-        yield return null;
+        //Debug.Log("AI move selected");
     }
 
     void makeMove(Move move)
@@ -119,38 +110,6 @@ public class AI_Script : MonoBehaviour
         //
         move.move_checker.is_checker_moving = true;
     }
-
-
-
-
-    /*
-    IEnumerator MyCoroutineMethod()
-    {
-        // Your code here…
-
-        yield return null;
-    }
-    */
-
-
-
-
-
-    /*
-    Move SelectMove(Move[] possible_moves)
-    {
-        for (int i = 0; i < 50000; ++i)
-        {
-            for (int j = 0; j < 100000; ++j)
-            {
-
-            }
-        }
-
-        return possible_moves[Random.Range(0, possible_moves.Length)];
-    }
-    */
-
 
 
     Move[] getPossibleMoves()
@@ -197,10 +156,4 @@ public class AI_Script : MonoBehaviour
 
         return possibleMoves.ToArray();
     }
-
-
-
-
-
-
 }
