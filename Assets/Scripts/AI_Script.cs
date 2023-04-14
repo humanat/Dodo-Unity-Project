@@ -21,6 +21,8 @@ public class AI_Script : MonoBehaviour
 
     GameManager gameManager;
 
+    public GameObject AI_Thinking_Image;
+
     bool was_AI_move_selected = false;
 
     Move selected_AI_move;
@@ -38,6 +40,10 @@ public class AI_Script : MonoBehaviour
         {
             was_AI_move_selected = false;
 
+            //Debug.Log("AI thinking stop");
+
+            AI_Thinking_Image.SetActive(false);
+
             makeMove(selected_AI_move);
         }
     }
@@ -52,22 +58,28 @@ public class AI_Script : MonoBehaviour
 
 
     //
-    //  ASHWIN  ####################
-    //
-    //  With i = 300, it takes exactly 5 seconds for SelectMove to complete
-    //
-    //  I need to figure out how to limit the Monte Carlo Tree Search analysis to less than 1/60 second per frame
+    //  SELECT MOVE
     //
     IEnumerator SelectMove(Move[] possible_moves)
     {
-        int i = 300;
+        AI_Thinking_Image.SetActive(true);
 
-        while (i > 0)
+        //Debug.Log("AI thinking start");
+
+        gameManager.state = Enum_Types.states.AI_thinking;
+
+        yield return null;
+
+
+        for (int i = 0; i < 10000; i++)
         {
-            i--;
+            for (int j = 0; j < 50000; j++)
+            {
 
-            yield return null;
+            }
         }
+
+        yield return null;
 
 
         selected_AI_move = possible_moves[Random.Range(0, possible_moves.Length)];

@@ -181,6 +181,20 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         //
+        //  AI PLAY BUTTON
+        //
+        if (state == Enum_Types.states.AI_idle && player_AIs[player_on_turn] == true)
+        {
+            AI_PlayButton.SetActive(true);
+        }
+        else
+        {
+            AI_PlayButton.SetActive(false);
+        }
+
+
+
+        //
         //  COMPLETED TURN
         //
         if (was_turn_completed)
@@ -210,7 +224,6 @@ public class GameManager : MonoBehaviour
                 history.addHistoryNode();
 
                 nextTurn();
-
             }
             else
             {
@@ -223,49 +236,6 @@ public class GameManager : MonoBehaviour
         }
 
 
-        //
-        //  AI PLAY BUTTON
-        //
-        if (state == Enum_Types.states.AI_idle && player_AIs[player_on_turn] == true)
-        {
-            AI_PlayButton.SetActive(true);
-        }
-        else
-        {
-            AI_PlayButton.SetActive(false);
-        }
-
-
-        //
-        //  RECORDER STOP BUTTON
-        //
-        /*
-        Sprite sprite;
-
-        if (playing_backward_many == true || playing_forward_many ==  true)
-        {
-            sprite = Resources.Load<Sprite>("Recorder/Dodo_Stop_Active");
-        }
-        else
-        {
-            sprite = Resources.Load<Sprite>("Recorder/Dodo_Stop_Inactive");
-        }
-
-        Recorder_StopButton.image.sprite = sprite;
-        */
-
-
-        //Recorder_StopButton. = true;
-        /*
-        if (multiple_nodes_replaying == false)
-        {
-            sprite = Resources.Load<Sprite>("Recorder/Dodo_Stop_Inactive");
-        }
-        else
-        {
-            sprite = Resources.Load<Sprite>("Recorder/Dodo_Stop_Active");
-        }
-        */
 
     }
 
@@ -314,7 +284,7 @@ public class GameManager : MonoBehaviour
             //
             //  STATE = AI THINKING
             //
-            state = Enum_Types.states.AI_thinking;
+            //state = Enum_Types.states.AI_thinking;
 
             ai_Script.takeTurn();
         }
