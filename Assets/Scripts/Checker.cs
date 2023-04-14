@@ -61,7 +61,7 @@ public class Checker : MonoBehaviour
     //  dependent on checkers settling.  Instead, have GameManager set is_move_starting = true here.  Once detected in Update,
     //  set is_move_starting to false right away, and after a short delay, set was_turn_completed to true in GameManager.
     //
-    public bool is_move_starting;
+    //public bool is_move_starting;
 
 
 
@@ -114,23 +114,6 @@ public class Checker : MonoBehaviour
                 gameManager.was_turn_completed = true;
             }
         }
-
-        /*
-        if (is_move_starting == true)
-        {
-            is_move_starting = false;
-
-            StartCoroutine(markTurnCompleted(turn_completed_time));
-        }
-
-        // 
-        //  MOVE CHECKER CLOSER TO TARGET TILE POSITION 
-        //
-        if (    Mathf.Abs(  (transform.position - target_tile.transform.position).magnitude  ) > allowable_dist_from_targ    )
-        {
-            transform.position = Vector3.SmoothDamp(transform.position, target_tile.transform.position, ref velocity, smooth_time);
-        }
-        */
     }
 
 

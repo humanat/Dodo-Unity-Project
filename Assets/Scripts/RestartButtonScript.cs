@@ -200,6 +200,19 @@ public class RestartButtonScript : MonoBehaviour
 
         gameManager.playing_forward_many = false;
 
+        gameManager.is_AI_engaged = true;
+
+
+
+
+        Checker[] checkers = GameObject.FindObjectsOfType<Checker>();
+
+        foreach (Checker checker in checkers)
+        {
+            checker.is_checker_moving = false;
+        }
+
+
 
 
         Tile[] tiles = GameObject.FindObjectsOfType<Tile>();

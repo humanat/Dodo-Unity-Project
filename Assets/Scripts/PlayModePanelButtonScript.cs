@@ -65,11 +65,9 @@ public class PlayModePanelButtonScript : MonoBehaviour
                 //  IF PLAYER 1 ON TURN
                 //  
                 //      Unhighlight all tiles
-                //      Show AI Play Button
                 //
                 //  ELSE IF PLAYER 0 ON TURN 
                 //
-                //      Hide AI Play Button
                 //      Highlight source tiles
                 //
                 if (player_on_turn == 1)
@@ -83,13 +81,9 @@ public class PlayModePanelButtonScript : MonoBehaviour
 
                             gameManager.unhighlightAllTiles();
 
-                            //gameManager.showAI_PlayButton();
-                            //gameManager.disengageAI();
-
                             break;
                     }
                 }
-                //else if (player_on_turn == 0)
                 else // player_on_turn == 0
                 {
                     switch (state)
@@ -97,8 +91,6 @@ public class PlayModePanelButtonScript : MonoBehaviour
                         case Enum_Types.states.AI_idle:
 
                             gameManager.state = Enum_Types.states.source_tiles_highlighted;
-
-                            //gameManager.hideAI_PlayButton();
 
                             gameManager.highlightSourceTiles();
 
@@ -190,8 +182,6 @@ public class PlayModePanelButtonScript : MonoBehaviour
 
                         gameManager.state = Enum_Types.states.source_tiles_highlighted;
 
-                        //gameManager.hideAI_PlayButton();
-
                         gameManager.highlightSourceTiles();
 
                         break;
@@ -221,9 +211,9 @@ public class PlayModePanelButtonScript : MonoBehaviour
 
                         gameManager.state = Enum_Types.states.AI_idle;
 
-                        gameManager.unhighlightAllTiles();
+                        gameManager.disengageAI();
 
-                        //gameManager.showAI_PlayButton();
+                        gameManager.unhighlightAllTiles();
 
                         break;
                 }

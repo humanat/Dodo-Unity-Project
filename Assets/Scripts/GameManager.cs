@@ -89,6 +89,11 @@ public class GameManager : MonoBehaviour
     //  ##
 
     //
+    //  IS ENGAGED AI
+    //
+    public bool is_AI_engaged = true;
+
+    //
     //  CURRENT AI LEVEL
     //
     public int current_AI_level = 1;
@@ -113,9 +118,15 @@ public class GameManager : MonoBehaviour
 
 
     //
-    //  PLAY AI BUTTON
+    //  AI PLAY BUTTON
     //
     public GameObject AI_PlayButton;
+
+
+    //
+    //  AI STOP BUTTON
+    //
+    public GameObject AI_StopButton;
 
 
     //
@@ -135,9 +146,6 @@ public class GameManager : MonoBehaviour
     //public GameObject Recorder_StopButton_g_o;
 
     public Button Recorder_StopButton;
-
-
-
 
 
 
@@ -195,6 +203,21 @@ public class GameManager : MonoBehaviour
 
 
         //
+        //  AI STOP BUTTON
+        //
+        if (current_play_mode == Enum_Types.play_modes.AI_vs_AI 
+            && is_AI_engaged)
+        {
+            AI_StopButton.SetActive(true);
+        }
+        else
+        {
+            AI_StopButton.SetActive(false);
+        }
+
+
+
+        //
         //  COMPLETED TURN
         //
         if (was_turn_completed)
@@ -208,9 +231,21 @@ public class GameManager : MonoBehaviour
 
 
             //
+            //  IF WAS HUMAN MOVE
+            //
+            //      ENGAGE AI
+            //
+            if (player_AIs[player_on_turn] == false)
+            {
+                engageAI();
+            }
+
+
+            //
             //  ADVANCE PLAYER ON TURN
             //
             player_on_turn = (player_on_turn + 1) % 2;
+
 
             //
             //  PLAY MODE BUTTON - INDICATE PLAYER ON TURN 
@@ -220,7 +255,6 @@ public class GameManager : MonoBehaviour
 
             if (hasMovesAvailable())
             {
-
                 history.addHistoryNode();
 
                 nextTurn();
@@ -234,9 +268,6 @@ public class GameManager : MonoBehaviour
                 history.addHistoryNode();
             }
         }
-
-
-
     }
 
 
@@ -262,7 +293,12 @@ public class GameManager : MonoBehaviour
             //  HIGHLIGHT SOURCE TILES
             //
             highlightSourceTiles();
-            //has_moves_available = highlightSourceTiles();
+
+
+            //
+            //  ENGAGE AI
+            //
+            //engageAI();
 
 
             //
@@ -281,12 +317,14 @@ public class GameManager : MonoBehaviour
         }
         else                                        //  AI PLAYER ON TURN 
         {
-            //
-            //  STATE = AI THINKING
-            //
-            //state = Enum_Types.states.AI_thinking;
-
-            ai_Script.takeTurn();
+            if (is_AI_engaged)
+            {
+                ai_Script.takeTurn();
+            }
+            else
+            {
+                state = Enum_Types.states.AI_idle;
+            }
         }
     }
 
@@ -415,33 +453,6 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
-
-
-    //
-    //  SHOW AI PLAY BUTTON
-    //
-    /*
-    public void showAI_PlayButton()
-    {
-        //state = Enum_Types.states.AI_idle;
-
-        AI_PlayButton.SetActive(true);
-
-        unhighlightAllTiles();
-    }
-    */
-
-    /*
-    //
-    //  HIDE AI PLAY BUTTON
-    //
-    public void hideAI_PlayButton()
-    {
-        //state = Enum_Types.states.AI_idle;
-
-        AI_PlayButton.SetActive(false);
-    }
-    */
 
 
     //
@@ -712,23 +723,9 @@ public class GameManager : MonoBehaviour
             //
             //  MOVE CHECKER 
             //
-
-
-
-
             selected_checker.is_checker_moving = true;
 
-
-
-            //selected_checker.is_move_starting = true;
-
             selected_checker.target_tile = clicked_tile;
-
-
-            //
-            //  INCREMENT NUMBER OF TURNS
-            //
-            //++number_of_turns;
         }
         else
         {
@@ -782,7 +779,6 @@ public class GameManager : MonoBehaviour
     }
 
 
-
     void highlightTile(Tile tile_container)
     {
         GameObject inner_tile = tile_container.transform.GetChild(0).gameObject; 
@@ -791,11 +787,26 @@ public class GameManager : MonoBehaviour
     }
 
 
-
     void unhighlightTile(Tile tile_container)
     {
         GameObject inner_tile = tile_container.transform.GetChild(0).gameObject;
 
         inner_tile.GetComponent<MeshRenderer>().material = tile_material;
+    }
+
+
+    public void engageAI()
+    {
+        //Debug.Log("Engage AI");
+
+        is_AI_engaged = true;
+    }
+
+
+    public void disengageAI()
+    {
+        //Debug.Log("Disengage AI");
+
+        is_AI_engaged = false;
     }
 }

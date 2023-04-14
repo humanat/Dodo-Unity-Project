@@ -14920,6 +14920,7 @@ GameObject:
   - component: {fileID: 1515427597}
   - component: {fileID: 1515427596}
   - component: {fileID: 1515427595}
+  - component: {fileID: 1515427598}
   m_Layer: 5
   m_Name: AI_StopButton
   m_TagString: Untagged
@@ -14944,7 +14945,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -90, y: 30}
+  m_AnchoredPosition: {x: -100, y: 30}
   m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1515427595
@@ -14990,7 +14991,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1515427596}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1515427598}
+        m_TargetAssemblyTypeName: AI_StopButtonScript, Assembly-CSharp
+        m_MethodName: AI_Stop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1515427596
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15029,6 +15042,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1515427593}
   m_CullTransparentMesh: 1
+--- !u!114 &1515427598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1515427593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16985b8445c954a44b124004b8c1406d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
+  AI_StopButton: {fileID: 1515427593}
 --- !u!1 &1519563452
 GameObject:
   m_ObjectHideFlags: 0
@@ -16641,10 +16668,12 @@ MonoBehaviour:
   highlighted_tile_material: {fileID: 2100000, guid: 8b8cdc4bbb1dcdf4cae275be443664d0, type: 2}
   Win_Flag_Red: {fileID: 385911806}
   Win_Flag_Blue: {fileID: 1363403326}
+  is_AI_engaged: 1
   current_AI_level: 1
   ai_Script: {fileID: 0}
   player_AIs: 0001
   AI_PlayButton: {fileID: 1406970002}
+  AI_StopButton: {fileID: 1515427593}
   playing_backward_many: 0
   playing_forward_many: 0
   Recorder_StopButton: {fileID: 16701184}

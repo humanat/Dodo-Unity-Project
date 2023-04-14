@@ -75,6 +75,12 @@ public class HistoryScript : MonoBehaviour
     //
     public void jumpToBeginning()
     {
+        //
+        //  DISENGAGE AI 
+        //
+        gameManager.disengageAI();
+
+
         gameManager.playing_backward_many = false;
 
         gameManager.playing_forward_many = false;
@@ -92,6 +98,12 @@ public class HistoryScript : MonoBehaviour
     //
     public void backMany()
     {
+        //
+        //  DISENGAGE AI 
+        //
+        gameManager.disengageAI();
+
+
         gameManager.playing_forward_many = false;
 
         gameManager.playing_backward_many = true;
@@ -134,6 +146,12 @@ public class HistoryScript : MonoBehaviour
     //
     public void backOne()
     {
+        //
+        //  DISENGAGE AI 
+        //
+        gameManager.disengageAI();
+
+
         gameManager.playing_backward_many = false;
 
         gameManager.playing_forward_many = false;
@@ -165,6 +183,12 @@ public class HistoryScript : MonoBehaviour
     //
     public void playOne()
     {
+        //
+        //  DISENGAGE AI 
+        //
+        gameManager.disengageAI();
+
+
         gameManager.playing_backward_many = false;
 
         gameManager.playing_forward_many = false;
@@ -185,6 +209,12 @@ public class HistoryScript : MonoBehaviour
     //
     public void playMany()
     {
+        //
+        //  DISENGAGE AI 
+        //
+        gameManager.disengageAI();
+
+
         gameManager.playing_backward_many = false;
 
         gameManager.playing_forward_many = true;
@@ -228,6 +258,12 @@ public class HistoryScript : MonoBehaviour
 
     public void jumpToEnd()
     {
+        //
+        //  DISENGAGE AI 
+        //
+        gameManager.disengageAI();
+
+
         gameManager.playing_backward_many = false;
 
         gameManager.playing_forward_many = false;
@@ -408,8 +444,6 @@ public class HistoryScript : MonoBehaviour
             else                                                                //  AI PLAYER
             {
                 gameManager.state = Enum_Types.states.AI_idle;
-
-                //gameManager.showAI_PlayButton();
             }
         }
     }

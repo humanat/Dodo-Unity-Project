@@ -1,14 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using UnityEngine.UI;
 
-public class AI_PlayButtonScript : MonoBehaviour
+public class AI_StopButtonScript : MonoBehaviour
 {
     public GameManager gameManager;
 
-    public GameObject AI_PlayButton;
-    
+    public GameObject AI_StopButton;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,13 +18,13 @@ public class AI_PlayButtonScript : MonoBehaviour
     void Update()
     {
         // CAN'T DO UPDATE HERE BECAUSE DOESN'T WORK WHEN BUTTON IS INVISIBLE (NON-ACTIVE)
+
+        // SEE GAME MANAGER UPDATE FUNCTION
     }
 
-    public void AI_Play()
+    public void AI_Stop()
     {
-        gameManager.engageAI();
-        //gameManager.is_AI_engaged = true;
-
-        gameManager.ai_Script.takeTurn();
+        gameManager.disengageAI();
+        //gameManager.is_AI_engaged = false;
     }
 }
