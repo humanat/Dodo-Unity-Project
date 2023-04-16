@@ -427,6 +427,8 @@ public class HistoryScript : MonoBehaviour
         }
 
 
+        gameManager.setCheckersPlayerID();  //  PLAYER IDs MAY HAVE CHANGED DUE TO PIE EXECUTION
+
 
         //
         //  IF GAME HAS NOT ENDED
@@ -438,6 +440,9 @@ public class HistoryScript : MonoBehaviour
             if (gameManager.player_AIs[gameManager.player_on_turn] == false)    //  HUMAN PLAYER
             {
                 gameManager.state = Enum_Types.states.source_tiles_highlighted;
+
+
+                //Debug.Log("copyReplayNodeToBoard(), highlightSourceTiles()");
 
                 gameManager.highlightSourceTiles();
             }

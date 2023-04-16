@@ -210,6 +210,25 @@ public class RestartButtonScript : MonoBehaviour
         foreach (Checker checker in checkers)
         {
             checker.is_checker_moving = false;
+
+            //
+            //  SET PLAYER IDs
+            //
+            //      RED - Player 0
+            //      BLUE - Player 1
+            //
+            string checker_name = checker.name;
+
+            string[] syllables = checker_name.Split('_');
+
+            if (syllables[0] == "Red")
+            {
+                checker.player_ID = 0;
+            }
+            else
+            {
+                checker.player_ID = 1;
+            }
         }
 
 

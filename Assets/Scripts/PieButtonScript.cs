@@ -20,13 +20,14 @@ public class PieButtonScript : MonoBehaviour
         
     }
 
-    public void invokePie()
+    public void executePie()
     {
         //
         //  CHANGE PLAYER ID's
         //      FROM 0 TO 1
         //      FROM 1 TO 0
         //
+        /*
         Checker[] all_checkers = GameObject.FindObjectsOfType<Checker>();
 
         foreach (Checker checker in all_checkers)
@@ -40,6 +41,7 @@ public class PieButtonScript : MonoBehaviour
                 checker.player_ID = 0;
             }
         }
+        */
 
 
         //
@@ -48,6 +50,14 @@ public class PieButtonScript : MonoBehaviour
         //      FROM BLUE TO RED
         //
         gameManager.player_colors = new Enum_Types.colors[] { Enum_Types.colors.blue, Enum_Types.colors.red };
+
+        //Debug.Log(gameManager.player_colors[0] + " " + gameManager.player_colors[1]);
+
+
+        //
+        //  SET PLAYER IDs
+        //
+        gameManager.setCheckersPlayerID();
 
 
         //

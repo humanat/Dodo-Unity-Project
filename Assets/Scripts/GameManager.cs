@@ -478,7 +478,6 @@ public class GameManager : MonoBehaviour
 
         Checker[] checkers = GameObject.FindObjectsOfType<Checker>();
 
-
         foreach (Checker checker in checkers)
         {
             if (checker.player_ID == player_on_turn)
@@ -808,5 +807,45 @@ public class GameManager : MonoBehaviour
         //Debug.Log("Disengage AI");
 
         is_AI_engaged = false;
+    }
+
+
+
+    public void setCheckersPlayerID()
+    {
+        Checker[] checkers = GameObject.FindObjectsOfType<Checker>();
+
+        foreach (Checker checker in checkers)
+        {
+            //
+            //  SET PLAYER IDs
+            //
+            string checker_name = checker.name;
+
+            string[] syllables = checker_name.Split('_');
+
+            if (syllables[0] == "Red")                          //  RED CHECKER
+            {
+                if (player_colors[0] == Enum_Types.colors.red)  //      PLAYER 0 IS RED
+                {
+                    checker.player_ID = 0;
+                }
+                else                                            //      PLAYER 1 IS RED
+                {
+                    checker.player_ID = 1;
+                }
+            }
+            else                                                //  BLUE CHECKER
+            {
+                if (player_colors[0] == Enum_Types.colors.blue) //      PLAYER 0 IS BLUE
+                {
+                    checker.player_ID = 0;
+                }
+                else                                            //      PLAYER 1 IS BLUE
+                {
+                    checker.player_ID = 1;
+                }
+            }
+        }
     }
 }

@@ -1,8 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using static AI_Script_Old;
 
+
+
+
+//
+//  MONTE CARLO TREE SEARCH 
+//
+//  If number_of_turns == 0  AND is_pie_enabled 
+//      Make average value move
+//  
+//  If number_of_turns == 1  AND is_pie_enabled
+//      Make the mirror of the root node one of its child nodes and mark it as the pie move
+//      If it turns out to be the best move
+//          Execute pie
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 public class AI_Script : MonoBehaviour
 {
     public struct Move
