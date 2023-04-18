@@ -7,6 +7,8 @@ public class Recorder_StopButtonScript : MonoBehaviour
 {
     public Button Recorder_StopButton;
 
+    public bool is_button_enabled;
+
     public HistoryScript history;
 
 
@@ -29,10 +31,14 @@ public class Recorder_StopButtonScript : MonoBehaviour
 
         if (gameManager.playing_backward_many == true || gameManager.playing_forward_many == true)
         {
+            is_button_enabled = true;
+
             sprite = Resources.Load<Sprite>("Recorder/Dodo_Stop_Active");
         }
         else
         {
+            is_button_enabled = false;
+
             sprite = Resources.Load<Sprite>("Recorder/Dodo_Stop_Inactive");
         }
 
@@ -42,6 +48,10 @@ public class Recorder_StopButtonScript : MonoBehaviour
 
     public void stop()
     {
-        history.stop();
+        if (is_button_enabled)
+        {
+            history.stop();
+        }
+        //history.stop();
     }
 }

@@ -7,6 +7,8 @@ public class Recorder_JumpEndButtonScript : MonoBehaviour
 {
     public Button Recorder_JumpEndButton;
 
+    public bool is_button_enabled;
+
     public HistoryScript history;
 
 
@@ -25,6 +27,28 @@ public class Recorder_JumpEndButtonScript : MonoBehaviour
     {
         Sprite sprite;
 
+        //
+        //  If history is not at the end  AND  checker isn't moving 
+        //      Enable the button
+        //
+        //  Else
+        //      Disable the button
+        //
+        if (!(history.replay_node == history.positions.Last)
+            && !(gameManager.state == Enum_Types.states.checker_moving))
+        {
+            is_button_enabled = true;
+
+            sprite = Resources.Load<Sprite>("Recorder/Dodo_Jump_End_Active");
+        }
+        else
+        {
+            is_button_enabled = false;
+
+            sprite = Resources.Load<Sprite>("Recorder/Dodo_Jump_End_Inactive");
+        }
+
+        /*
         if (history.replay_node == history.positions.Last)
         {
             sprite = Resources.Load<Sprite>("Recorder/Dodo_Jump_End_Inactive");
@@ -33,6 +57,7 @@ public class Recorder_JumpEndButtonScript : MonoBehaviour
         {
             sprite = Resources.Load<Sprite>("Recorder/Dodo_Jump_End_Active");
         }
+        */
 
         Recorder_JumpEndButton.image.sprite = sprite;
     }
@@ -40,6 +65,10 @@ public class Recorder_JumpEndButtonScript : MonoBehaviour
 
     public void jumpToEnd()
     {
-        history.jumpToEnd();
+        if (is_button_enabled)
+        {
+            history.jumpToEnd();
+        }
+        //history.jumpToEnd();
     }
 }

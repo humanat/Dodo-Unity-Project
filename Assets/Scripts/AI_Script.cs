@@ -28,6 +28,19 @@ using UnityEngine;
 //
 public class AI_Script : MonoBehaviour
 {
+    //
+    //  MCTS
+    //
+    public MCTS_Script MCTS_Algorithm;
+
+    public MCTS_Position current_position;
+
+    public MCTS_Position best_move_position;
+
+
+    //
+    //  MOVE
+    //
     public struct Move
     {
         public Move(Checker checker, Tile tile)
@@ -63,11 +76,12 @@ public class AI_Script : MonoBehaviour
         {
             was_AI_move_selected = false;
 
-            //Debug.Log("AI thinking stop");
-
             AI_Thinking_Image.SetActive(false);
 
-            makeMove(selected_AI_move);
+            if (gameManager.is_AI_engaged)  //  AI MIGHT HAVE BEEN DISENGAGED BY A RECORDER BUTTON PRESS
+            {
+                makeMove(selected_AI_move);
+            }
         }
     }
 
@@ -94,13 +108,36 @@ public class AI_Script : MonoBehaviour
         yield return null;
 
 
+
+        //
+        //  ###############
+        //
+        //  MCTS EVALUATION
+        //
+        //  ###############
+        //
+        current_position = new MCTS_Position();
+
+        current_position.initializeBoard();
+
+        best_move_position = MCTS_Algorithm.findBestMovePosition(current_position);
+
+
+        best_move_position.isTerminal();
+
+
+
+
+        //Debug.Log("color: " + best_move_position.player_color);
+
         for (int i = 0; i < 10000; i++)
         {
-            for (int j = 0; j < 50000; j++)
+            for (int j = 0; j < 100000; j++)
             {
 
             }
         }
+
 
         yield return null;
 
@@ -144,6 +181,8 @@ public class AI_Script : MonoBehaviour
         //  START MOVE
         //
         move.move_checker.is_checker_moving = true;
+
+        gameManager.state = Enum_Types.states.checker_moving;
     }
 
 

@@ -7,6 +7,8 @@ public class Recorder_BackManyButtonScript : MonoBehaviour
 {
     public Button Recorder_BackManyButton;
 
+    public bool is_button_enabled;
+
     public HistoryScript history;
 
 
@@ -25,19 +27,36 @@ public class Recorder_BackManyButtonScript : MonoBehaviour
     {
         Sprite sprite;
 
+        //
+        //  If it's continously playing backward
+        //      Disable button.  Only the Stop button can stop it
+        //
+        //  Else 
+        //      If the history position is not at the first node  AND  a checker isn't moving
+        //          Enable button
+        //      Else
+        //          Disable button
+        //
         if (gameManager.playing_backward_many == true)
         {
+            is_button_enabled = false;
+
             sprite = Resources.Load<Sprite>("Recorder/Dodo_Back_Many_Running");
         }
         else
         {
-            if (history.replay_node == history.positions.First)
+            if ( ! (history.replay_node == history.positions.First)
+            && ! (gameManager.state == Enum_Types.states.checker_moving) )
             {
-                sprite = Resources.Load<Sprite>("Recorder/Dodo_Back_Many_Inactive");
+                is_button_enabled = true;
+
+                sprite = Resources.Load<Sprite>("Recorder/Dodo_Back_Many_Active");
             }
             else
             {
-                sprite = Resources.Load<Sprite>("Recorder/Dodo_Back_Many_Active");
+                is_button_enabled = false;
+
+                sprite = Resources.Load<Sprite>("Recorder/Dodo_Back_Many_Inactive");
             }
         }
 
@@ -47,6 +66,9 @@ public class Recorder_BackManyButtonScript : MonoBehaviour
 
     public void backMany()
     {
-        history.backMany();
+        if (is_button_enabled)
+        {
+            history.backMany();
+        }
     }
 }

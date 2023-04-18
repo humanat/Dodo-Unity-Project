@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
     //
     //  TURN VARIABLES 
     //
-    //public bool was_destination_selected;
+    public bool is_a_checker_moving;
 
     public bool was_turn_completed;
 
@@ -722,6 +722,8 @@ public class GameManager : MonoBehaviour
             //
             //  MOVE CHECKER 
             //
+            state = Enum_Types.states.checker_moving;
+
             selected_checker.is_checker_moving = true;
 
             selected_checker.target_tile = clicked_tile;
@@ -808,6 +810,13 @@ public class GameManager : MonoBehaviour
 
         is_AI_engaged = false;
     }
+
+    /*
+    public bool is_AI_Engaged()
+    {
+        return is_AI_engaged;
+    }
+    */
 
 
 

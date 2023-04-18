@@ -25,6 +25,8 @@ public class AI_StopButtonScript : MonoBehaviour
     public void AI_Stop()
     {
         gameManager.disengageAI();
+
+        gameManager.state = Enum_Types.states.AI_idle;
         //gameManager.is_AI_engaged = false;
     }
 }

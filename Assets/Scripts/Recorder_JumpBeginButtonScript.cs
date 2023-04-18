@@ -7,6 +7,8 @@ public class Recorder_JumpBeginButtonScript : MonoBehaviour
 {
     public Button Recorder_JumpBeginButton;
 
+    public bool is_button_enabled;
+
     public HistoryScript history;
 
 
@@ -25,13 +27,25 @@ public class Recorder_JumpBeginButtonScript : MonoBehaviour
     {
         Sprite sprite;
 
-        if (history.replay_node == history.positions.First)
+        //
+        //  If history is not at the beginning  AND  checker isn't moving 
+        //      Enable the button
+        //
+        //  Else
+        //      Disable the button
+        //
+        if ( ! (history.replay_node == history.positions.First)
+            && ! (gameManager.state == Enum_Types.states.checker_moving) )
         {
-            sprite = Resources.Load<Sprite>("Recorder/Dodo_Jump_Begin_Inactive");
+            is_button_enabled = true;
+
+            sprite = Resources.Load<Sprite>("Recorder/Dodo_Jump_Begin_Active");
         }
         else
         {
-            sprite = Resources.Load<Sprite>("Recorder/Dodo_Jump_Begin_Active");
+            is_button_enabled = false;
+
+            sprite = Resources.Load<Sprite>("Recorder/Dodo_Jump_Begin_Inactive");
         }
 
         Recorder_JumpBeginButton.image.sprite = sprite;
@@ -40,6 +54,9 @@ public class Recorder_JumpBeginButtonScript : MonoBehaviour
 
     public void jumpToBeginning()
     {
-        history.jumpToBeginning();
+        if (is_button_enabled)
+        {
+            history.jumpToBeginning();
+        }
     }
 }
