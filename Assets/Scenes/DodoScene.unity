@@ -317,6 +317,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Recorder_StopButton: {fileID: 16701184}
+  is_button_enabled: 0
   history: {fileID: 0}
   gameManager: {fileID: 0}
 --- !u!1 &34140017
@@ -1695,6 +1696,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Recorder_BackOneButton: {fileID: 115606092}
+  is_button_enabled: 0
   history: {fileID: 0}
   gameManager: {fileID: 0}
 --- !u!1001 &117890977
@@ -7311,6 +7313,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Recorder_JumpBeginButton: {fileID: 813553271}
+  is_button_enabled: 0
   history: {fileID: 0}
   gameManager: {fileID: 0}
 --- !u!1 &822943355
@@ -10632,6 +10635,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Recorder_BackManyButton: {fileID: 1153593899}
+  is_button_enabled: 0
   history: {fileID: 0}
   gameManager: {fileID: 0}
 --- !u!1 &1155371792
@@ -13146,13 +13150,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1390461247}
-        m_TargetAssemblyTypeName: PayButtonScript, Assembly-CSharp
-        m_MethodName: buyNoAdVersion
+      - m_Target: {fileID: 1390461245}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -14852,6 +14856,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Recorder_PlayOneButton: {fileID: 1480462043}
+  is_button_enabled: 0
   history: {fileID: 0}
   gameManager: {fileID: 0}
 --- !u!1 &1509213169
@@ -15001,6 +15006,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Recorder_PlayManyButton: {fileID: 1509213171}
+  is_button_enabled: 0
   history: {fileID: 0}
   gameManager: {fileID: 0}
 --- !u!1 &1512205446
@@ -16854,6 +16860,7 @@ MonoBehaviour:
   current_play_mode: 0
   PlayModeButton: {fileID: 206196873}
   player_colors: 0000000001000000
+  is_a_checker_moving: 0
   was_turn_completed: 0
   tile_material: {fileID: 2100000, guid: 15cfe5a14859e8e4b8ddab0b396b9e08, type: 2}
   highlighted_tile_material: {fileID: 2100000, guid: 8b8cdc4bbb1dcdf4cae275be443664d0, type: 2}
@@ -19873,6 +19880,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Recorder_JumpEndButton: {fileID: 1901472433}
+  is_button_enabled: 0
   history: {fileID: 0}
   gameManager: {fileID: 0}
 --- !u!1 &1904785902

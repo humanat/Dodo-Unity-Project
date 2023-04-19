@@ -33,7 +33,7 @@ public class AI_Script : MonoBehaviour
     //
     public MCTS_Script MCTS_Algorithm;
 
-    public MCTS_Position current_position;
+    public MCTS_Position root_position;
 
     public MCTS_Position best_move_position;
 
@@ -116,14 +116,23 @@ public class AI_Script : MonoBehaviour
         //
         //  ###############
         //
-        current_position = new MCTS_Position();
+        root_position = new MCTS_Position();
 
-        current_position.initializeBoard();
+        root_position.initializeRootPosition();
 
-        best_move_position = MCTS_Algorithm.findBestMovePosition(current_position);
+        //root_position.showPosition(root_position);
+
+        best_move_position = MCTS_Algorithm.findBestMovePosition(root_position);
 
 
-        best_move_position.isTerminal();
+
+
+
+
+
+
+
+        //best_move_position.isTerminal();
 
 
 

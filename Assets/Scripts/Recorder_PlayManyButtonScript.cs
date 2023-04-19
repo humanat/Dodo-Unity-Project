@@ -38,11 +38,11 @@ public class Recorder_PlayManyButtonScript : MonoBehaviour
         //      Else
         //          Disable button
         //
-        if (gameManager.playing_backward_many == true)
+        if (gameManager.playing_forward_many == true)
         {
             is_button_enabled = false;
 
-            sprite = Resources.Load<Sprite>("Recorder/Dodo_Back_Many_Running");
+            sprite = Resources.Load<Sprite>("Recorder/Dodo_Play_Many_Running");
         }
         else
         {
@@ -60,23 +60,6 @@ public class Recorder_PlayManyButtonScript : MonoBehaviour
                 sprite = Resources.Load<Sprite>("Recorder/Dodo_Play_Many_Inactive");
             }
         }
-        /*
-        if (gameManager.playing_forward_many == true)
-        {
-            sprite = Resources.Load<Sprite>("Recorder/Dodo_Play_Many_Running");
-        }
-        else
-        {
-            if (history.replay_node == history.positions.Last)
-            {
-                sprite = Resources.Load<Sprite>("Recorder/Dodo_Play_Many_Inactive");
-            }
-            else
-            {
-                sprite = Resources.Load<Sprite>("Recorder/Dodo_Play_Many_Active");
-            }
-        }
-        */
 
         Recorder_PlayManyButton.image.sprite = sprite;
     }
