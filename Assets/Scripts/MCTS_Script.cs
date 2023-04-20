@@ -475,9 +475,10 @@ public class MCTS_Script : MonoBehaviour
 
             MCTS_Node child_node = expandNodeAndSelectChild(selected_node);
 
-            int simulation_result = simulate(child_node);
+            int winning_player = simulate(child_node);
+            bool win = winning_player == root_node.player_on_turn;
 
-            backPropagate(child_node, simulation_result);
+            backPropagate(child_node, win);
         }
 
 
@@ -498,8 +499,7 @@ public class MCTS_Script : MonoBehaviour
     {
         MCTS_Node node = root_node;
 
-        float tunable_bias_parameter = 2;
-
+        float tunable_bias_parameter = Mathf.Sqrt(2f);
 
         while (node.children.Count > 0)
         {
@@ -509,7 +509,16 @@ public class MCTS_Script : MonoBehaviour
 
             foreach (MCTS_Node child in node.children)
             {
-                float UCB = (float)child.wins / child.visits + Mathf.Sqrt(tunable_bias_parameter * Mathf.Log(node.visits) / child.visits);
+                float UCB = 0f;
+                if (node.MCTS_position.player_on_turn == root_node.player_on_turn)
+                {
+                    UCB = (float)child.wins / (float)child.visits;
+                }
+                else
+                {
+                    UCB = ((float)child.visits - (float)child.wins - 1f) / (float)child.visits;
+                }
+                UCB += tunable_bias_parameter * Mathf.Sqrt(Mathf.Log((float)node.visits) / (float)child.visits);
 
                 if (UCB > bestScore)
                 {
@@ -557,22 +566,18 @@ public class MCTS_Script : MonoBehaviour
             current_position = current_position.getRandomNextPosition();
         }
 
-        return current_position.player_on_turn;     //  IF POSITION IS TERMINAL, PLAYER ON TURN IS THE WINNER
+        // IF POSITION IS TERMINAL, PLAYER ON TURN IS THE WINNER
+        return current_position.player_on_turn;
     }
 
 
 
-    private void backPropagate(MCTS_Node node, int winner)
+    private void backPropagate(MCTS_Node node, bool win)
     {
         while (node != null)
         {
             node.visits++;
-
-            if (node.MCTS_position.player_on_turn == winner)
-            {
-                node.wins++;
-            }
-
+            if (win) node.wins++;
             node = node.parent;
         }
     }
