@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -63,6 +64,8 @@ public class AI_Script : MonoBehaviour
 
     Move selected_AI_move;
 
+    Move AI_move;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -120,25 +123,12 @@ public class AI_Script : MonoBehaviour
 
         root_position.initializeRootPosition();
 
-        //root_position.showPosition(root_position);
+        //root_position.showPosition();
 
         best_move_position = MCTS_Algorithm.findBestMovePosition(root_position);
 
 
-
-
-
-
-
-
-
-        //best_move_position.isTerminal();
-
-
-
-
-        //Debug.Log("color: " + best_move_position.player_color);
-
+        /*
         for (int i = 0; i < 10000; i++)
         {
             for (int j = 0; j < 100000; j++)
@@ -146,17 +136,71 @@ public class AI_Script : MonoBehaviour
 
             }
         }
+        */
 
 
         yield return null;
 
 
-        selected_AI_move = possible_moves[Random.Range(0, possible_moves.Length)];
+
+        selected_AI_move = convert_AI_PositionToCheckerTile(best_move_position);
+
+
+        //selected_AI_move = possible_moves[UnityEngine.Random.Range(0, possible_moves.Length)];
 
         was_AI_move_selected = true;
-
-        //Debug.Log("AI move selected");
     }
+
+
+
+    Move convert_AI_PositionToCheckerTile(MCTS_Position best_move_position)
+    {
+
+        //Move selected_AI_move = new Move();
+
+        int[] source_cell = best_move_position.source_cell;
+
+        int[] dest_cell = best_move_position.dest_cell;
+
+
+        String source_tile_name = "Tile_container_" + source_cell[0].ToString() + "_" + source_cell[1].ToString();
+
+        String dest_tile_name = "Tile_container_" + dest_cell[0].ToString() + "_" + dest_cell[1].ToString();
+
+
+        //
+        //  SOURCE CHECKER
+        //
+        GameObject source_tile_g_o = GameObject.Find(source_tile_name);
+
+        Tile source_tile = source_tile_g_o.GetComponent<Tile>();
+
+        Checker source_checker = source_tile.resident_checker;
+
+        //
+        //  DEST TILE
+        //
+        GameObject dest_tile_g_o = GameObject.Find(dest_tile_name);
+
+        Tile dest_tile = dest_tile_g_o.GetComponent<Tile>();
+
+
+        //Debug.Log(source_checker);
+
+        //Debug.Log(dest_tile);
+
+
+
+
+        //selected_AI_move.move_checker = source_checker;
+
+        Move selected_AI_move = new Move(source_checker, dest_tile);
+
+
+        return selected_AI_move;
+    }
+
+
 
     void makeMove(Move move)
     {

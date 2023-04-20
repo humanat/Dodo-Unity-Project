@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 
@@ -41,9 +42,39 @@ public class MCTS_Position
     //  For children of the root, keep track of the move that got to this position.
     //  Can be used to recreate checker-to-tile move.
     //
-    int[ ] source_cell;
+    public int[ ] source_cell;
 
-    int[ ] dest_cell;
+    public int[ ] dest_cell;
+
+
+    //
+    //  CONSTRUCTOR FOR NEW, BLANK POSITION
+    //
+    public MCTS_Position()
+    {
+        
+    }
+
+
+    //
+    //  CONSTRUCTOR TO COPY ANOTHER POSITION
+    //
+    public MCTS_Position(MCTS_Position position)
+    {
+        board = position.board.Clone() as int?[,];
+
+        player_on_turn = position.player_on_turn;
+
+        player_colors = position.player_colors;
+
+        number_of_turns = position.number_of_turns;
+
+        is_pie_enabled = position.is_pie_enabled;
+
+        //source_cell = position.source_cell.Clone() as int[];  //  COPIED POSITION ONLY USED IN SIMULATED PLAYOUT
+
+        //dest_cell = position.dest_cell.Clone() as int[];      //  SOURCE CELL AND DESTINATION CELL AREN'T NECESSARY IN SIMULATED PLAYOUT
+    }
 
 
     //
@@ -70,8 +101,6 @@ public class MCTS_Position
 
             int v = int.Parse(syllables[3]);
 
-            //Debug.Log(u + ", " + v);
-
 
             Checker resident_checker = tile_container.resident_checker;
 
@@ -85,8 +114,6 @@ public class MCTS_Position
 
                 board[u, v] = player_ID;
             }
-
-            //Debug.Log(u + ", " + v + " " + board[u, v]);
         }
 
 
@@ -109,7 +136,7 @@ public class MCTS_Position
 
     public List<MCTS_Position> getLegalPositions()
     {
-        Debug.Log("get legal positions  ########################################################");
+        //Debug.Log("get legal positions  ########################################################");
 
 
         List<MCTS_Position> legalPositions = new List<MCTS_Position>();
@@ -122,17 +149,9 @@ public class MCTS_Position
         {
             for (int v = lowerLimit(u); v <= upperLimit(u); v++)
             {
-                //Debug.Log(u + ", " + v + ": " + board[u, v]);
-
-
-
-
                 if (board[u, v] == player_on_turn)
                 {
                     //Debug.Log(u + ", " + v + " player on turn " + player_on_turn);
-
-
-
 
                     if (player_color == Enum_Types.colors.red)  //  RED PLAYER
                     {
@@ -161,8 +180,6 @@ public class MCTS_Position
                     {
                         if (isUnoccupiedCell(u + 1, v))
                         {
-                            //Debug.Log("unoccupied neighbor of " + u + ", " + v);
-
                             MCTS_Position legal_position = createPosition(u, v, u + 1, v);
 
                             legalPositions.Add(legal_position);
@@ -170,8 +187,6 @@ public class MCTS_Position
 
                         if (isUnoccupiedCell(u + 1, v - 1))
                         {
-                            //Debug.Log("unoccupied neighbor of " + u + ", " + v);
-
                             MCTS_Position legal_position = createPosition(u, v, u + 1, v - 1);
 
                             legalPositions.Add(legal_position);
@@ -179,8 +194,6 @@ public class MCTS_Position
 
                         if (isUnoccupiedCell(u, v - 1))
                         {
-                            //Debug.Log("unoccupied neighbor of " + u + ", " + v);
-
                             MCTS_Position legal_position = createPosition(u, v, u, v - 1);
 
                             legalPositions.Add(legal_position);
@@ -191,6 +204,15 @@ public class MCTS_Position
         }
 
         return legalPositions;
+    }
+
+
+
+    public MCTS_Position getRandomNextPosition()
+    {
+        List<MCTS_Position> legalPositions = getLegalPositions();
+
+        return legalPositions[Random.Range(0, legalPositions.Count)];
     }
 
 
@@ -206,11 +228,11 @@ public class MCTS_Position
         new_position.board[dest_u, dest_v] = player_on_turn;    //  OCCUPY DEST CELL
 
 
-        new_position.player_on_turn = (player_on_turn + 1) % 2;
+        new_position.player_on_turn = (player_on_turn + 1) % 2; //  ADVANCE PLAYER ON TURN
 
         new_position.player_colors = player_colors;     // Colors will reverse if pie move
 
-        new_position.number_of_turns = number_of_turns + 1;
+        new_position.number_of_turns = number_of_turns + 1;     // INCREMENT NUMBER OF TURNS
 
         new_position.is_pie_enabled = is_pie_enabled;
 
@@ -245,7 +267,6 @@ public class MCTS_Position
 
 
 
-
     public bool isTerminal()
     {
         if (hasMoves())
@@ -253,7 +274,9 @@ public class MCTS_Position
             return false;
         }
         else
-        { 
+        {
+            //Debug.Log("is terminal ############################");
+
             return true; 
         }
     }
@@ -322,8 +345,6 @@ public class MCTS_Position
         {
             if (board[u, v] == null)
             {
-                //Debug.Log(u + ", " + v + " is unoccupied cell");
-
                 return true;
             }
         }
@@ -338,8 +359,6 @@ public class MCTS_Position
         {
             if (v >= 3 - u && v <=6) 
             {
-                //Debug.Log("is on board");
-                
                 return true;
             }
         }
@@ -347,8 +366,6 @@ public class MCTS_Position
         {
             if (v >= 0 && v <= 9 - u)
             {
-                //Debug.Log("is on board");
-
                 return true;
             }
         }
@@ -430,8 +447,13 @@ public class MCTS_Node
 //
 public class MCTS_Script : MonoBehaviour
 {
-    int max_iterations = 1;
+    //int max_iterations = 1;
+    //int max_iterations = 100;
+    //int max_iterations = 500;
     //int max_iterations = 1000;
+    int max_iterations = 5000;
+    //int max_iterations = 10000;
+    //int max_iterations = 100000;
 
     //GameManager gameManager;
 
@@ -442,35 +464,37 @@ public class MCTS_Script : MonoBehaviour
 
         for (int i = 0; i < max_iterations; i++)
         {
+            //Debug.Log("iteration: " + i);
+
+
             MCTS_Node selected_node = selectNode(root_node);
-
-
 
             //selected_node.MCTS_position.showPosition();
 
-            selected_node.MCTS_position.getLegalPositions();
+            //selected_node.MCTS_position.getLegalPositions();
 
+            MCTS_Node child_node = expandNodeAndSelectChild(selected_node);
 
-            //MCTS_Node child_node = expandNodeAndSelectChild(selected_node);
-            //int simulation_result = simulate(expanded_node);
-            //backPropagate(expanded_node, simulation_result);
+            int simulation_result = simulate(child_node);
+
+            backPropagate(child_node, simulation_result);
         }
 
 
 
 
-        //return GetBestChild(rootNode).State;
+        return getBestChild(root_node).MCTS_position;
 
 
 
 
 
-        return MCTS_root_pos;
+        //return MCTS_root_pos;
     }
 
 
 
-    public MCTS_Node selectNode (MCTS_Node root_node)
+    private MCTS_Node selectNode (MCTS_Node root_node)
     {
         MCTS_Node node = root_node;
 
@@ -517,6 +541,60 @@ public class MCTS_Script : MonoBehaviour
         }
 
         return node.children[Random.Range(0, node.children.Count)];
+    }
+
+
+    private int simulate(MCTS_Node node)
+    {
+        //Debug.Log("simulate #####################################");
+
+        MCTS_Position current_position = new MCTS_Position (node.MCTS_position);
+
+        //currentPosition.showPosition();
+
+        while ( ! current_position.isTerminal() )
+        {
+            current_position = current_position.getRandomNextPosition();
+        }
+
+        return current_position.player_on_turn;     //  IF POSITION IS TERMINAL, PLAYER ON TURN IS THE WINNER
+    }
+
+
+
+    private void backPropagate(MCTS_Node node, int winner)
+    {
+        while (node != null)
+        {
+            node.visits++;
+
+            if (node.MCTS_position.player_on_turn == winner)
+            {
+                node.wins++;
+            }
+
+            node = node.parent;
+        }
+    }
+
+
+    private MCTS_Node getBestChild(MCTS_Node rootNode)
+    {
+        int maxVisits = -1;
+
+        MCTS_Node bestChild = null;
+
+        foreach (MCTS_Node child in rootNode.children)
+        {
+            if (child.visits > maxVisits)
+            {
+                maxVisits = child.visits;
+
+                bestChild = child;
+            }
+        }
+
+        return bestChild;
     }
 
 
